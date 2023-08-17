@@ -1,0 +1,15 @@
+﻿@model meusite.Models.Category
+
+@{
+    ViewBag.Title = "Browse";
+}
+
+<h2>@Model.Name</h2>
+<ul>
+    @foreach(var item in Model.Items)
+    {
+        <li>
+            @Html.ActionLink(item.Title, "Details", new{ id=item.ItemId})
+        </li>
+    }
+</ul>

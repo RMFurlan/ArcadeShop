@@ -1,0 +1,18 @@
+﻿@model IEnumerable<meusite.Models.Category>
+
+@{
+    ViewBag.Title = "Store";
+}
+
+<h2>Store</h2>
+<p>
+
+    Select between @Model.Count()
+    platforms:
+</p>
+<ul>
+    @foreach (var category in Model)
+    {
+        <li>@Html.ActionLink(category.Name,"Browse", new {category = category.Name })</li>
+    }
+</ul>
