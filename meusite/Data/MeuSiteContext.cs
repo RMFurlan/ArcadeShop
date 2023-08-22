@@ -1,4 +1,5 @@
 ﻿using meusite.Models;
+using MeuSite.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Plugins;
 
@@ -20,6 +21,7 @@ namespace meusite.Data
                 optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             }
         }
+
         public DbSet<Item> Items { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Producer> Producers { get; set; }

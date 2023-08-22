@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using meusite.Data;
 using Microsoft.EntityFrameworkCore;
+using meusite.Models;
 
 namespace meusite.Controllers
 {
@@ -21,7 +22,18 @@ namespace meusite.Controllers
         }
         public IActionResult Details(int id)
         {
-            var Item = storeDB.Items.Find(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var Item =  storeDB.Items
+                .Include(i => i.Category)
+                .Include(i => i.Producer)
+                .FirstOrDefault(i => i.ItemId == id);
+            if (Item == null)
+            {
+                return NotFound();
+            }
             return View(Item);
         }
     }

@@ -7,32 +7,32 @@
     <img alt="@Model.Title"
          src="@Model.ItemArtUrl" width="482" height="271" />
 </p>
-<div id="item-details">
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.Category.Name)
-    </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+            
+        <dt>
+            @Html.DisplayNameFor(model => model.Producer.Name)
+        </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.Category.Name)
-    </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Producer.Name)
+        </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.Producer.Name)
-    </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.Producer.Name)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.Price)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Price)
-    </dd>
-
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
     <p class="button1">
         @Html.ActionLink("Add to cart", "AddToCart",
         "ShoppingCart", new { id = Model.ItemId }, "")

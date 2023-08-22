@@ -9,7 +9,7 @@
         $(".RemoveLink").click(function () {
             var recordToDelete = $(this).attr("data-id");
             if (recordToDelete != '') {
-                $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
+                $.post("/ShoppingCart/RemoveFromCart", {"id": recordToDelete },
                     function (data) {
                         if (data.ItemCount == 0) {
                             $('#row-' + data.DeleteId).fadeOut('slow');
@@ -49,11 +49,8 @@
     {
         <tr id="row-@item.RecordId">
             <td>
-                @if (item != null && item.Item != null && item.ItemId != null)
-                {
-                    @Html.ActionLink(item.Item.Title,
+                @Html.ActionLink(item.Item.Title,
             "Details", "Store", new { id = item.ItemId }, null)
-                }
             </td>
             <td>
                 @item.Item.Price

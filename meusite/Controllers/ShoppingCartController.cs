@@ -25,12 +25,12 @@ namespace MeuSite.Controllers
             return View(viewlModel);
         }
 
-        public IActionResult AddToCart(int? id)
+        public IActionResult AddToCart(int id)
         {
             var addedItem = storeDB.Items
-                .Include(item => item.Category)
-                .Include(item => item.Producer)
-                .FirstOrDefault(item => item.ItemId == id);
+                .Include(i => i.Category)
+                .Include(i => i.Producer)
+                .FirstOrDefault(i => i.ItemId == id);
 
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
