@@ -2,13 +2,53 @@
 @{
     ViewBag.Title = "Item - " + Model.Title;
 }
-<h2>@Model.Title</h2>
-<p>
-    <img alt="@Model.Title"
-         src="@Model.ItemArtUrl" width="482" height="271" />
-</p>
-<div>
-    <dl class="dl-horizontal">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <h2>@Model.Title</h2>
+    <div>
+        <div class="slider">
+
+            <div class="slides">
+                <!--Radio Buttons-->
+                <input type="radio" name="radio-btn" id="radio1">
+                <input type="radio" name="radio-btn" id="radio2">
+                <input type="radio" name="radio-btn" id="radio3">
+                <input type="radio" name="radio-btn" id="radio4">
+
+                <!--Slide images-->
+                <div class="slide first">
+                    <img src="@Model.ItemArtUrl" alt="Imagem 1" />
+                </div>
+                <div class="slide">
+                    <img src="@Model.ItemArtUrl2" alt="Imagem 2" />
+                </div>
+                <div class="slide">
+                    <img src="@Model.ItemArtUrl3" alt="Imagem 3" />
+                </div>
+                <div class="slide">
+                    <img src="@Model.ItemArtUrl4" alt="Imagem 4" />
+                </div>
+
+                <!--Navigation auto-->
+                <div class="navigation-auto">
+                    <div class="auto-btn1"></div>
+                    <div class="auto-btn2"></div>
+                    <div class="auto-btn3"></div>
+                    <div class="auto-btn4"></div>
+                </div>
+            </div>
+
+            <div class="manual-navigation">
+                <label for="radio1" class="manual-btn"></label>
+                <label for="radio2" class="manual-btn"></label>
+                <label for="radio3" class="manual-btn"></label>
+                <label for="radio4" class="manual-btn"></label>
+            </div>
+        </div>
         <dt>
             @Html.DisplayNameFor(model => model.Category.Name)
         </dt>
@@ -16,7 +56,7 @@
         <dd>
             @Html.DisplayFor(model => model.Category.Name)
         </dd>
-            
+
         <dt>
             @Html.DisplayNameFor(model => model.Producer.Name)
         </dt>
@@ -32,10 +72,12 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-    </dl>
-    <p class="button1">
-        @Html.ActionLink("Add to cart", "AddToCart",
-        "ShoppingCart", new { id = Model.ItemId }, "")
-    </p>
-    <div class="fb-comments" data-width="230" data-numposts="5"></div>
-</div>
+
+        <p class="button1">
+            @Html.ActionLink("Add to cart", "AddToCart",
+            "ShoppingCart", new { id = Model.ItemId }, "")
+        </p>
+        <div class="fb-comments" data-width="230" data-numposts="5"></div>
+    </div>
+    <script src="~/js/script.js"></script>
+</body>

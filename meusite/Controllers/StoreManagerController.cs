@@ -55,7 +55,7 @@ namespace meusite.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,CategoryId,ProducerId,Title,Price,ItemArtUrl")] Item item)
+        public async Task<IActionResult> Create([Bind("ItemId,CategoryId,ProducerId,Title,Price,ItemArtUrl,ItemArtUrl2,ItemArtUrl3,ItemArtUrl4")] Item item)
         {
                 _context.Add(item); 
                 await _context.SaveChangesAsync();
@@ -85,7 +85,7 @@ namespace meusite.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind("ItemId,CategoryId,ProducerId,Title,Price,ItemArtUrl")] Item item)
+        public async Task<ActionResult> Edit([Bind("ItemId,CategoryId,ProducerId,Title,Price,ItemArtUrl,ItemArtUrl2,ItemArtUrl3,ItemArtUrl4")] Item item)
         {
                 _context.Update(item);
                 await _context.SaveChangesAsync();

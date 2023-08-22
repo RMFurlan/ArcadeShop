@@ -18,9 +18,18 @@ namespace meusite.Models
         [Required(ErrorMessage = "Price is required")]
         [Range(0.1, 1000000, ErrorMessage = "price Must be between 0.1 and 100")]
         public decimal Price { get; set; }
-        [DisplayName("Item Art Url")]
+        [DisplayName("Image Url 1")]
         [StringLength(1024)]
         public string ItemArtUrl { get; set; }
+        [DisplayName("Image Url 2")]
+        [StringLength(1024)]
+        public string ItemArtUrl2 { get; set; }
+        [DisplayName("Image Url 3")]
+        [StringLength(1024)]
+        public string ItemArtUrl3 { get; set; }
+        [DisplayName("Image Url 4")]
+        [StringLength(1024)]
+        public string ItemArtUrl4 { get; set; }
         public Category Category { get; set; }
         public Producer Producer { get; set; }
     }
