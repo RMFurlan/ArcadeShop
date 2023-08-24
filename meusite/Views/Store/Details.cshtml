@@ -6,12 +6,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        .limited-text {
+            max-width: 600px;
+            text-align: justify;
+            text-justify: auto;
+        }
+    </style>
 </head>
 <body>
     <h2>@Model.Title</h2>
-    <div>
+    <div class="row">
         <div class="slider">
-
             <div class="slides">
                 <!--Radio Buttons-->
                 <input type="radio" name="radio-btn" id="radio1">
@@ -49,35 +55,40 @@
                 <label for="radio4" class="manual-btn"></label>
             </div>
         </div>
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
+        <div class="mx-5 my-auto">
+            <dt>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Category.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Producer.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Producer.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Producer.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Producer.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <p class="button1">
-            @Html.ActionLink("Add to cart", "AddToCart",
-            "ShoppingCart", new { id = Model.ItemId }, "")
-        </p>
-        <div class="fb-comments" data-width="230" data-numposts="5"></div>
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <p class="button1">
+                @Html.ActionLink("Add to cart", "AddToCart",
+                "ShoppingCart", new { id = Model.ItemId }, "")
+            </p>
+        </div>
     </div>
-    <script src="~/js/script.js"></script>
+    <div class="container my-4">
+        <h4> About the game </h4>
+        <p class="limited-text">@Html.DisplayFor(model => model.Description)</p>
+    </div>
 </body>
+
+<script src="~/js/script.js"></script>
