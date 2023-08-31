@@ -32,7 +32,7 @@ namespace meusite.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Producers",
+                name: "Producer",
                 columns: table => new
                 {
                     ProducerId = table.Column<int>(type: "int", nullable: false)
@@ -42,7 +42,7 @@ namespace meusite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producers", x => x.ProducerId);
+                    table.PrimaryKey("PK_Producer", x => x.ProducerId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -70,9 +70,9 @@ namespace meusite.Migrations
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Items_Producers_ProducerId",
+                        name: "FK_Items_Producer_ProducerId",
                         column: x => x.ProducerId,
-                        principalTable: "Producers",
+                        principalTable: "Producer",
                         principalColumn: "ProducerId",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -99,7 +99,7 @@ namespace meusite.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Producers");
+                name: "Producer");
         }
     }
 }

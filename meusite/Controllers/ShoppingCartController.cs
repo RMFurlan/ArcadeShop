@@ -11,6 +11,7 @@ namespace MeuSite.Controllers
     {
 
         MeuSiteContext storeDB = new MeuSiteContext();
+        private readonly ShoppingCart _shoppingCart;
 
         public IActionResult Index()
         {
@@ -42,25 +43,40 @@ namespace MeuSite.Controllers
         [HttpPost]
         public ActionResult RemoveFromCart(int id)
         {
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var item = storeDB.Items
+                .Include(i => i.Category)
+                .Include(i => i.Producer)
+                .FirstOrDefault(i => i.ItemId == id);
 
-            string itemName = storeDB.Carts
-                .Single(item => item.RecordId == id).Item.Title;
-
-            int itemCount = cart.RemoveFromCart(id);
-
-
-            var results = new ShoppingCartRemoveViewModel
+            if (item != null)
             {
-                Message = HtmlEncoder.Default.Encode(itemName) +
-                    " has been removed from your shopping cart.",
-                CartTotal = cart.GetTotal(),
-                CartCount = cart.GetCount(),
-                ItemCount = itemCount,
-                DeleteId = id
-            };
-            return Json(results);
+                var itemCount = _shoppingCart.RemoveFromCart(item);
+
+                if (itemCount > 0)
+                {
+                    var cartTotal = _shoppingCart.GetTotal();
+                    var cartCount = _shoppingCart.GetCount();
+
+                    var result = new
+                    {
+                        ItemCount = itemCount,
+                        CartTotal = cartTotal,
+                        CartCount = cartCount,
+                        Message = "Item removido do carrinho com sucesso."
+                    };
+
+                    return Json(result);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
         }
+
+
 
         public ActionResult CartSummary()
         {

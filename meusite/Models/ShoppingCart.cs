@@ -1,6 +1,7 @@
 ﻿using meusite.Data;
 using meusite.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace shoppingstore.Models
 {
@@ -47,12 +48,12 @@ namespace shoppingstore.Models
 
             storeDB.SaveChanges();
         }
-        public int RemoveFromCart(int id)
+        public int RemoveFromCart(Item item)
         {
 
-            var cartItem = storeDB.Carts.Single(
-                cart => cart.CartId == ShoppingCartId
-                && cart.RecordId == id);
+            var cartItem = storeDB.Carts.SingleOrDefault(
+                c => c.Item.ItemId == item.ItemId 
+                && c.CartId == ShoppingCartId);
 
             int itemCount = 0;
 
@@ -67,7 +68,6 @@ namespace shoppingstore.Models
                 {
                     storeDB.Carts.Remove(cartItem);
                 }
-
                 storeDB.SaveChanges();
             }
             return itemCount;
@@ -78,17 +78,16 @@ namespace shoppingstore.Models
             var cartItems = storeDB.Carts.Where(
                 cart => cart.CartId == ShoppingCartId);
 
-            foreach (var cartItem in cartItems)
-            {
-                storeDB.Carts.Remove(cartItem);
-            }
+            storeDB.Carts.RemoveRange(cartItems);
 
             storeDB.SaveChanges();
         }
         public List<Cart> GetCartItems()
         {
             return storeDB.Carts.Where(
-                cart => cart.CartId == ShoppingCartId).ToList();
+                cart => cart.CartId == ShoppingCartId)
+                .Include(i => i.Item)
+                .ToList();
         }
         public int GetCount()
         {
@@ -103,7 +102,7 @@ namespace shoppingstore.Models
         public decimal GetTotal()
         {
 
-            decimal? total = (from cartItems in storeDB.Carts
+            var total = (from cartItems in storeDB.Carts
                               where cartItems.CartId == ShoppingCartId
                               select (int?)cartItems.Count *
                               cartItems.Item.Price).Sum();

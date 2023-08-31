@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-Flatly.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/meusite.styles.css" asp-append-version="true" />
-</head> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -20,13 +22,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Store" asp-action="Index">Store</a> 
+                            <a class="nav-link text-dark " asp-controller="Store" asp-action="Index">Store</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="StoreManager" asp-action="Index">StoreManager</a>
+                        </li>
+                        <li class="nav-item row">
+                            <a class="nav-link text-dark mx-2" asp-controller="ShoppingCart" asp-action="Index"> <i class="material-icons"> shopping_cart </i> </a>
                         </li>
                     </ul>
                 </div>

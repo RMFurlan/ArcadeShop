@@ -1,15 +1,17 @@
-﻿@model MeuSite.Models.ViewModels.ShoppingCartViewModel
+﻿@using System.Globalization;
+@model MeuSite.Models.ViewModels.ShoppingCartViewModel
 @{
     ViewBag.Title = "Shopping Cart";
 }
 <script src="/Scripts/jquery-1.4.4.min.js"
         type="text/javascript"></script>
+
 <script type="text/javascript">
     $(function () {
         $(".RemoveLink").click(function () {
             var recordToDelete = $(this).attr("data-id");
             if (recordToDelete != '') {
-                $.post("/ShoppingCart/RemoveFromCart", {"id": recordToDelete },
+                $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
                     function (data) {
                         if (data.ItemCount == 0) {
                             $('#row-' + data.DeleteId).fadeOut('slow');
@@ -35,10 +37,10 @@
 <table>
     <tr>
         <th>
-            Item Name
+            Game Name
         </th>
         <th>
-            Price (each)
+            Price
         </th>
         <th>
             Quantity
@@ -53,7 +55,7 @@
             "Details", "Store", new { id = item.ItemId }, null)
             </td>
             <td>
-                @item.Item.Price
+                @item.Item.Price.ToString("F2", CultureInfo.InvariantCulture)
             </td>
             <td id="item-count-@item.RecordId">
                 @item.Count
@@ -74,7 +76,7 @@
         <td></td>
         <td></td>
         <td id="cart-total">
-            @Model.CartTotal
+            @Model.CartTotal.ToString("F2", CultureInfo.InvariantCulture)
         </td>
     </tr>
 </table>

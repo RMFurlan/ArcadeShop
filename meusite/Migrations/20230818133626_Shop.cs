@@ -19,7 +19,7 @@ namespace meusite.Migrations
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Producer",
                 table: "Producer");
-
+                                    
             migrationBuilder.RenameTable(
                 name: "Producer",
                 newName: "Producers");
