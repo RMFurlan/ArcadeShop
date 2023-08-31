@@ -1,5 +1,6 @@
 using meusite.Data;
 using Microsoft.EntityFrameworkCore;
+using shoppingstore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
+builder.Services.AddScoped<ShoppingCart>();
+
 
 var app = builder.Build();
 

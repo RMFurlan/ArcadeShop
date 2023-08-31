@@ -10,12 +10,16 @@ namespace MeuSite.Controllers
     public class ShoppingCartController : Controller
     {
 
-        MeuSiteContext storeDB = new MeuSiteContext();
-        private readonly ShoppingCart _shoppingCart;
-
+        MeuSiteContext _storeDB = new MeuSiteContext();
+        private ShoppingCart _shoppingCart;
+        public ShoppingCartController(MeuSiteContext context, ShoppingCart shoppingCart)
+        {
+            _storeDB = context;
+            _shoppingCart = shoppingCart;
+        }
         public IActionResult Index()
         {
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = _shoppingCart.GetCart(this.HttpContext);
 
             var viewlModel = new ShoppingCartViewModel
             {
@@ -28,12 +32,12 @@ namespace MeuSite.Controllers
 
         public IActionResult AddToCart(int id)
         {
-            var addedItem = storeDB.Items
+            var addedItem = _storeDB.Items
                 .Include(i => i.Category)
                 .Include(i => i.Producer)
                 .FirstOrDefault(i => i.ItemId == id);
 
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = _shoppingCart.GetCart(this.HttpContext);
 
             cart.AddToCart(addedItem);
 
@@ -43,7 +47,9 @@ namespace MeuSite.Controllers
         [HttpPost]
         public ActionResult RemoveFromCart(int id)
         {
-            var item = storeDB.Items
+            _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
+
+            var item = _storeDB.Items
                 .Include(i => i.Category)
                 .Include(i => i.Producer)
                 .FirstOrDefault(i => i.ItemId == id);
@@ -76,11 +82,9 @@ namespace MeuSite.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
         public ActionResult CartSummary()
         {
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = _shoppingCart.GetCart(this.HttpContext);
 
             ViewData["CartCount"] = cart.GetCount();
             return PartialView("CartSummary");

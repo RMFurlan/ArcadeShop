@@ -7,24 +7,24 @@ namespace shoppingstore.Models
 {
     public class ShoppingCart
     {
-        MeuSiteContext storeDB = new MeuSiteContext();
+        MeuSiteContext _storeDB = new MeuSiteContext();
         string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
-        public static ShoppingCart GetCart(HttpContext context)
+        public ShoppingCart GetCart(HttpContext context)
         {
             var cart = new ShoppingCart();
             cart.ShoppingCartId = cart.GetCartId(context);
             return cart;
         }
         
-        public static ShoppingCart GetCart(Controller controller)
+        public ShoppingCart GetCart(Controller controller)
         {
             return GetCart(controller.HttpContext);
         }
         public void AddToCart(Item item)
         {
 
-            var cartItem = storeDB.Carts.SingleOrDefault(
+            var cartItem = _storeDB.Carts.SingleOrDefault(
                 c => c.CartId == ShoppingCartId
                 && c.ItemId == item.ItemId);
 
@@ -38,7 +38,7 @@ namespace shoppingstore.Models
                     Count = 1,
                     DateCreated = DateTime.Now
                 };
-                storeDB.Carts.Add(cartItem);
+                _storeDB.Carts.Add(cartItem);
             }
             else
             {
@@ -46,12 +46,12 @@ namespace shoppingstore.Models
                 cartItem.Count++;
             }
 
-            storeDB.SaveChanges();
+            _storeDB.SaveChanges();
         }
         public int RemoveFromCart(Item item)
         {
 
-            var cartItem = storeDB.Carts.SingleOrDefault(
+            var cartItem = _storeDB.Carts.SingleOrDefault(
                 c => c.Item.ItemId == item.ItemId 
                 && c.CartId == ShoppingCartId);
 
@@ -66,25 +66,25 @@ namespace shoppingstore.Models
                 }
                 else
                 {
-                    storeDB.Carts.Remove(cartItem);
+                    _storeDB.Carts.Remove(cartItem);
                 }
-                storeDB.SaveChanges();
+                _storeDB.SaveChanges();
             }
             return itemCount;
         }
 
         public void EmptyCart()
         {
-            var cartItems = storeDB.Carts.Where(
+            var cartItems = _storeDB.Carts.Where(
                 cart => cart.CartId == ShoppingCartId);
 
-            storeDB.Carts.RemoveRange(cartItems);
+            _storeDB.Carts.RemoveRange(cartItems);
 
-            storeDB.SaveChanges();
+            _storeDB.SaveChanges();
         }
         public List<Cart> GetCartItems()
         {
-            return storeDB.Carts.Where(
+            return _storeDB.Carts.Where(
                 cart => cart.CartId == ShoppingCartId)
                 .Include(i => i.Item)
                 .ToList();
@@ -92,7 +92,7 @@ namespace shoppingstore.Models
         public int GetCount()
         {
 
-            int? count = (from cartItems in storeDB.Carts
+            int? count = (from cartItems in _storeDB.Carts
                           where cartItems.CartId == ShoppingCartId
                           select (int?)cartItems.Count).Sum();
 
@@ -102,7 +102,7 @@ namespace shoppingstore.Models
         public decimal GetTotal()
         {
 
-            var total = (from cartItems in storeDB.Carts
+            var total = (from cartItems in _storeDB.Carts
                               where cartItems.CartId == ShoppingCartId
                               select (int?)cartItems.Count *
                               cartItems.Item.Price).Sum();
@@ -128,14 +128,14 @@ namespace shoppingstore.Models
 
                 orderTotal += (item.Count * item.Item.Price);
 
-                storeDB.OrderDetails.Add(orderDetail);
+                _storeDB.OrderDetails.Add(orderDetail);
 
             }
 
             order.Total = orderTotal;
 
 
-            storeDB.SaveChanges();
+            _storeDB.SaveChanges();
 
             EmptyCart();
 
@@ -162,14 +162,14 @@ namespace shoppingstore.Models
         }
         public void MigrateCart(string Email)
         {
-            var shoppingCart = storeDB.Carts.Where(
+            var shoppingCart = _storeDB.Carts.Where(
                 c => c.CartId == ShoppingCartId);
 
             foreach (Cart item in shoppingCart)
             {
                 item.CartId = Email;
             }
-            storeDB.SaveChanges();
+            _storeDB.SaveChanges();
         }
 
 
