@@ -48,12 +48,10 @@ namespace shoppingstore.Models
 
             _storeDB.SaveChanges();
         }
-        public int RemoveFromCart(Item item)
+        public int RemoveFromCart(int id)
         {
 
-            var cartItem = _storeDB.Carts.SingleOrDefault(
-                c => c.Item.ItemId == item.ItemId 
-                && c.CartId == ShoppingCartId);
+            var cartItem = _storeDB.Carts.Single(cart => cart.CartId == ShoppingCartId && cart.RecordId == id);
 
             int itemCount = 0;
 
@@ -68,7 +66,7 @@ namespace shoppingstore.Models
                 {
                     _storeDB.Carts.Remove(cartItem);
                 }
-                _storeDB.SaveChanges();
+                _storeDB.SaveChangesAsync();
             }
             return itemCount;
         }
@@ -77,10 +75,12 @@ namespace shoppingstore.Models
         {
             var cartItems = _storeDB.Carts.Where(
                 cart => cart.CartId == ShoppingCartId);
+            foreach (var cartItem in cartItems)
+            {
+                _storeDB.Carts.Remove(cartItem);
+            }
 
-            _storeDB.Carts.RemoveRange(cartItems);
-
-            _storeDB.SaveChanges();
+            _storeDB.SaveChangesAsync();
         }
         public List<Cart> GetCartItems()
         {

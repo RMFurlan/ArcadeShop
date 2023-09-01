@@ -49,37 +49,20 @@ namespace MeuSite.Controllers
         {
             _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
-            var item = _storeDB.Items
-                .Include(i => i.Category)
-                .Include(i => i.Producer)
-                .FirstOrDefault(i => i.ItemId == id);
+            var item = _storeDB.Carts.FirstOrDefault(i => i.RecordId == id);
 
-            if (item != null)
+            var itemCount = _shoppingCart.RemoveFromCart(id);
+
+            var result = new ShoppingCartRemoveViewModel
             {
-                var itemCount = _shoppingCart.RemoveFromCart(item);
+                Message = "Item removed from cart successfully.",
+                CartTotal = _shoppingCart.GetTotal(),
+                CartCount = _shoppingCart.GetCount(),
+                ItemCount = itemCount,
+                DeleteId = id
+            };
 
-                if (itemCount > 0)
-                {
-                    var cartTotal = _shoppingCart.GetTotal();
-                    var cartCount = _shoppingCart.GetCount();
-
-                    var result = new
-                    {
-                        ItemCount = itemCount,
-                        CartTotal = cartTotal,
-                        CartCount = cartCount,
-                        Message = "Item removido do carrinho com sucesso."
-                    };
-
-                    return Json(result);
-                }
-                else
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-
-            return RedirectToAction(nameof(Index));
+            return Json(result);
         }
 
         public ActionResult CartSummary()
