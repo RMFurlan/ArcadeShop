@@ -1,4 +1,6 @@
 using meusite.Data;
+using MeuSite.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using shoppingstore.Models;
 
@@ -8,7 +10,9 @@ var connectionString = builder.Configuration.GetConnectionString("MeuSiteContext
 
 builder.Services.AddDbContext<MeuSiteContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-    
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MeuSiteContext>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
@@ -35,6 +39,7 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Store}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapRazorPages();
 app.Run();
