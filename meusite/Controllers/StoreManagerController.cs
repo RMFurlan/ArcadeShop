@@ -8,7 +8,6 @@ using meusite.Migrations;
 
 namespace meusite.Controllers
 {
-    [Authorize(ApplicationUserEntityConfiguration = "rafaelfurlan45@yahoo.com")]
     public class StoreManagerController : Controller
     {
         private MeuSiteContext _context;
