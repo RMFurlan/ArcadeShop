@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace meusite.Controllers
 {
-    [Authorize(Policy = "RequerPerfilAdmin")]
+    [Authorize(Roles = "Administrator")]
     public class StoreManagerController : Controller
     {
         private MeuSiteContext _context;

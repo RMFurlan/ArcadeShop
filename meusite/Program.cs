@@ -18,12 +18,6 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MeuSiteContext>();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("RequerPerfilAdmin",
-    policy => policy.RequireRole("Administrator"));
-});
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
