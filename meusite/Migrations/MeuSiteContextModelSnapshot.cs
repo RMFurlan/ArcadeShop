@@ -248,7 +248,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("meusite.Models.Category", b =>
@@ -267,7 +267,7 @@ namespace meusite.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("meusite.Models.Item", b =>
@@ -320,7 +320,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("ProducerId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("meusite.Models.Order", b =>
@@ -357,7 +357,7 @@ namespace meusite.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("meusite.Models.OrderDetail", b =>
@@ -384,7 +384,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("meusite.Models.Producer", b =>
@@ -399,7 +399,7 @@ namespace meusite.Migrations
 
                     b.HasKey("ProducerId");
 
-                    b.ToTable("Producers");
+                    b.ToTable("Producers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -5,9 +5,11 @@ using meusite.Data;
 using meusite.Models;
 using Microsoft.AspNetCore.Authorization;
 using meusite.Migrations;
+using Microsoft.AspNetCore.Identity;
 
 namespace meusite.Controllers
 {
+    [Authorize(Policy = "RequerPerfilAdmin")]
     public class StoreManagerController : Controller
     {
         private MeuSiteContext _context;

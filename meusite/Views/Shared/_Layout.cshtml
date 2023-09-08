@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MeuSite.Data;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,13 +25,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Store" asp-action="Index">Store</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item  col-10 row">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                        <li class="nav-item col-10 row">
-                            <a class="nav-link text-dark" asp-controller="StoreManager" asp-action="Index">StoreManager</a>
-                        </li>
-                        <li class="nav-item">
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="StoreManager" asp-action="Index">StoreManager</a>
+                            </li>
+                        }
+                        <li class="nav-item mx-2">
                             <a class="nav-link text-dark" asp-controller="ShoppingCart" asp-action="Index"> <i class="material-icons"> shopping_cart </i> </a>
                         </li>
                         <li class="nav-item">
