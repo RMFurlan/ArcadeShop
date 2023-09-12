@@ -45,11 +45,11 @@ namespace MeuSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult RemoveFromCart(int id)
+        public async Task<IActionResult> RemoveFromCart(int id)
         {
             _shoppingCart = _shoppingCart.GetCart(this.HttpContext);
 
-            var item = _storeDB.Carts.FirstOrDefault(i => i.RecordId == id);
+            var item = _storeDB.Carts.FirstOrDefaultAsync(i => i.RecordId == id);
 
             var itemCount = _shoppingCart.RemoveFromCart(id);
 

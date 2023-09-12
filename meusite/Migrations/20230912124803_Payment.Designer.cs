@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using meusite.Data;
 
@@ -10,9 +11,11 @@ using meusite.Data;
 namespace meusite.Migrations
 {
     [DbContext(typeof(MeuSiteContext))]
-    partial class MeuSiteContextModelSnapshot : ModelSnapshot
+    [Migration("20230912124803_Payment")]
+    partial class Payment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,7 +251,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("meusite.Models.Category", b =>
@@ -267,7 +270,7 @@ namespace meusite.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("meusite.Models.Item", b =>
@@ -320,7 +323,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("ProducerId");
 
-                    b.ToTable("Items", (string)null);
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("meusite.Models.Order", b =>
@@ -360,7 +363,7 @@ namespace meusite.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("meusite.Models.OrderDetail", b =>
@@ -387,7 +390,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("meusite.Models.Producer", b =>
@@ -402,7 +405,7 @@ namespace meusite.Migrations
 
                     b.HasKey("ProducerId");
 
-                    b.ToTable("Producers", (string)null);
+                    b.ToTable("Producers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

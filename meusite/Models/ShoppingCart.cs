@@ -11,7 +11,7 @@ namespace shoppingstore.Models
         string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
         public ShoppingCart GetCart(HttpContext context)
-        {
+        {   
             var cart = new ShoppingCart();
             cart.ShoppingCartId = cart.GetCartId(context);
             return cart;
