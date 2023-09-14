@@ -9,20 +9,23 @@ namespace MeuSite.Controllers
     [Authorize]
     public class CheckoutController : Controller
     {
-        ShoppingCart _shoppingCart;
+        private readonly ShoppingCart _shoppingCart;
         MeuSiteContext storeDB = new MeuSiteContext();
         const string PromoCode = "50";
-
-        public ActionResult Payment()
+        public CheckoutController(ShoppingCart shoppingCart)
+        {
+            _shoppingCart = shoppingCart;
+        }
+        public IActionResult Payment()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Payment(IFormCollection values)
+        public async Task<IActionResult> Payment(IFormCollection values)
         {
             var order = new Order();
-            TryUpdateModelAsync(order);  
+            TryUpdateModelAsync(order);
 
             try
             {
@@ -43,8 +46,7 @@ namespace MeuSite.Controllers
                     var cart = _shoppingCart.GetCart(this.HttpContext);
                     cart.CreateOrder(order);
 
-                    return RedirectToAction("Complete", 
-                        new { id = order.OrderId });
+                    return RedirectToAction("Complete", new { id = order.OrderId });
                 }
             }
             catch
@@ -61,13 +63,13 @@ namespace MeuSite.Controllers
 
             if (isValid)
             {
-                return View(id);
+                return View("Complete", id);
             }
             else
             {
                 return View("Error");
             }
         }
-
     }
+
 }

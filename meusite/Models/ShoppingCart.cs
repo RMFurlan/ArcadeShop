@@ -11,12 +11,12 @@ namespace shoppingstore.Models
         string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
         public ShoppingCart GetCart(HttpContext context)
-        {   
+        {
             var cart = new ShoppingCart();
             cart.ShoppingCartId = cart.GetCartId(context);
             return cart;
         }
-        
+
         public ShoppingCart GetCart(Controller controller)
         {
             return GetCart(controller.HttpContext);
@@ -103,9 +103,9 @@ namespace shoppingstore.Models
         {
 
             var total = (from cartItems in _storeDB.Carts
-                              where cartItems.CartId == ShoppingCartId
-                              select (int?)cartItems.Count *
-                              cartItems.Item.Price).Sum();
+                         where cartItems.CartId == ShoppingCartId
+                         select (int?)cartItems.Count *
+                         cartItems.Item.Price).Sum();
 
             return total ?? decimal.Zero;
         }
@@ -153,7 +153,7 @@ namespace shoppingstore.Models
                 else
                 {
 
-                    var tempCartId = Guid.NewGuid();
+                    Guid tempCartId = Guid.NewGuid();
 
                     context.Session.SetString(CartSessionKey, tempCartId.ToString());
                 }
