@@ -19,6 +19,9 @@ namespace meusite.Models
         [Range(0.1, 1000000, ErrorMessage = "price Must be between 0.1 and 100")]
         public decimal Price { get; set; }
         public string Description { get; set; }
+        [DisplayName("Card Game")]
+        [StringLength(1024)]
+        public string CardGame { get; set; }
         [DisplayName("Image Url 1")]
         [StringLength(1024)]
         public string ItemArtUrl { get; set; }

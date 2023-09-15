@@ -1,0 +1,10 @@
+﻿@model List<OrderDetail>
+
+<h1>Inventory</h1>
+
+@foreach (var item in Model)
+{
+    <div class="item">
+        <img src="@item.Item.CardGame" alt="@item.Item.Title" width="220" height="311.14"/>
+    </div>
+}

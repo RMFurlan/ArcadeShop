@@ -248,7 +248,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("meusite.Models.Category", b =>
@@ -267,7 +267,7 @@ namespace meusite.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("meusite.Models.Item", b =>
@@ -275,6 +275,11 @@ namespace meusite.Migrations
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("CardGame")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("varchar(1024)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -320,7 +325,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("ProducerId");
 
-                    b.ToTable("Items", (string)null);
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("meusite.Models.Order", b =>
@@ -360,7 +365,7 @@ namespace meusite.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("meusite.Models.OrderDetail", b =>
@@ -387,7 +392,7 @@ namespace meusite.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("meusite.Models.Producer", b =>
@@ -402,7 +407,7 @@ namespace meusite.Migrations
 
                     b.HasKey("ProducerId");
 
-                    b.ToTable("Producers", (string)null);
+                    b.ToTable("Producers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
