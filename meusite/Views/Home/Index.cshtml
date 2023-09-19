@@ -1,7 +1,31 @@
-﻿@{
+﻿@model Dictionary<Producer, List<Item>>
+@using System.Globalization;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div>
-
+    <ul>
+        @foreach (var kvp in Model)
+        {
+            <h4>@kvp.Key.Name</h4>
+            <ul>
+                <div class="row col-md-10">
+                    @foreach (var game in kvp.Value)
+                    {
+                        <div class="mb-3">
+                            <a href="Store/Details/@game.ItemId">
+                                <div class="game-item">
+                                    <img src="@game.CardGame" width="150" height="200">
+                                </div>
+                                <p class="text-left text-truncate" style="max-width: 150px;"> @game.Title </p>
+                                $@game.Price.ToString("F2", CultureInfo.InvariantCulture)
+                            </a>
+                        </div>
+                    }
+                </div>
+            </ul>
+        }
+    </ul>
 </div>

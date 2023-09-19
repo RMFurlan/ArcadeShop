@@ -1,10 +1,12 @@
 ﻿using meusite.Data;
 using meusite.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MeuSite.Controllers
 {
+    [Authorize]
     public class InventoryController : Controller
     {
         private MeuSiteContext _context;

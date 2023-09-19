@@ -1,5 +1,6 @@
 ﻿using meusite.Data;
 using MeuSite.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using shoppingstore.Models;
@@ -7,6 +8,7 @@ using System.Text.Encodings.Web;
 
 namespace MeuSite.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : Controller
     {
 
