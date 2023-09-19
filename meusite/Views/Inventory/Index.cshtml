@@ -9,6 +9,7 @@
 @foreach (var item in Model)
 {
     <div class="d-inline mx-2">
+        <a href="Store/Details/@item.ItemId">
         <img src="@item.Item.CardGame" class="img-thumbnail" alt="@item.Item.Title" width="220" height="311.14" />
     </div>
 }

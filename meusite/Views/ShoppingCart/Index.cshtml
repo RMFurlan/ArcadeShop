@@ -4,60 +4,68 @@
     ViewBag.Title = "Shopping Cart";
 }
 
-<h3>
-    <em>Review</em> your cart:
-</h3>
-<p class="button">
-    @Html.ActionLink("Checkout>> ", "Payment", "Checkout")
-</p>
-<div id="update-message">
-</div>
-<table class="container-fluid">
-    <tr>
-        <th>
-            Game Name
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Quantity
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model.CartItems)
-    {
-        <tr id="row-@item.RecordId">
-            <td>
-                @Html.ActionLink(item.Item.Title,
+<h2> My Cart</h2>
+
+@if (Model.CartItems.Count == 0)
+{
+    <div class="text-center">
+        <h3>There are no items in your cart :(</h3>
+    </div>
+}
+else
+{
+    <p class="button">
+        @Html.ActionLink("Checkout>> ", "Payment", "Checkout")
+    </p>
+    <div id="update-message">
+    </div>
+    <table class="container-fluid">
+        <tr>
+            <th>
+                Game Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr id="row-@item.RecordId">
+                <td>
+                    @Html.ActionLink(item.Item.Title,
             "Details", "Store", new { id = item.ItemId }, null)
-            </td>
+                </td>
+                <td>
+                    @item.Item.Price.ToString("F2", CultureInfo.InvariantCulture)
+                </td>
+                <td id="item-count-@item.RecordId">
+                    @item.Count
+                </td>
+                <td>
+                    <a href="#" class="RemoveLink"
+                       data-id="@item.RecordId">
+                        Remove
+                        from cart
+                    </a>
+                </td>
+            </tr>
+        }
+        <tr>
             <td>
-                @item.Item.Price.ToString("F2", CultureInfo.InvariantCulture)
+                Total
             </td>
-            <td id="item-count-@item.RecordId">
-                @item.Count
-            </td>
-            <td>
-                <a href="#" class="RemoveLink"
-                   data-id="@item.RecordId">
-                    Remove
-                    from cart
-                </a>
+            <td></td>
+            <td></td>
+            <td id="cart-total">
+                @Model.CartTotal.ToString("F2", CultureInfo.InvariantCulture)
             </td>
         </tr>
-    }
-    <tr>
-        <td>
-            Total
-        </td>
-        <td></td>
-        <td></td>
-        <td id="cart-total">
-            @Model.CartTotal.ToString("F2", CultureInfo.InvariantCulture)
-        </td>
-    </tr>
-</table>
+    </table>
+}
 
 @section scripts{
     <script type="text/javascript">

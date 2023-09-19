@@ -11,13 +11,13 @@
         {
             <h4>@kvp.Key.Name</h4>
             <ul>
-                <div class="row col-md-10">
+                <div class="row">
                     @foreach (var game in kvp.Value)
                     {
-                        <div class="mb-3">
+                        <div class="col-md-2 mb-2">
                             <a href="Store/Details/@game.ItemId">
                                 <div class="game-item">
-                                    <img src="@game.CardGame" width="150" height="200">
+                                    <img src="@game.CardGame" width="138" height="200">
                                 </div>
                                 <p class="text-left text-truncate" style="max-width: 150px;"> @game.Title </p>
                                 $@game.Price.ToString("F2", CultureInfo.InvariantCulture)
