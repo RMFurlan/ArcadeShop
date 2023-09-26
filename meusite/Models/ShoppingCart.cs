@@ -109,7 +109,19 @@ namespace shoppingstore.Models
 
             return total ?? decimal.Zero;
         }
+        private string GenerateGameKey()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var keyChars = new char[15];
 
+            for (int i = 0; i < 15; i++)
+            {
+                keyChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            return new string(keyChars);
+        }
         public int CreateOrder(Order order)
         {
             decimal orderTotal = 0;
@@ -123,7 +135,8 @@ namespace shoppingstore.Models
                     ItemId = item.ItemId,
                     OrderId = order.OrderId,
                     UnitPrice = item.Item.Price,
-                    Quantity = item.Count
+                    Quantity = item.Count,
+                    GameKey = GenerateGameKey()
                 };
 
                 orderTotal += (item.Count * item.Item.Price);

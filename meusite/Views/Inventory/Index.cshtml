@@ -6,10 +6,20 @@
 
 <h1>Games</h1>
 
-@foreach (var item in Model)
-{
-    <div class="d-inline mx-2">
-        <a href="Store/Details/@item.ItemId">
-        <img src="@item.Item.CardGame" class="img-thumbnail" alt="@item.Item.Title" width="220" height="311.14" />
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="game">
+                    <a href="Store/Details/@item.ItemId">
+                        <img src="@item.Item.CardGame" class="img-thumbnail" alt="@item.Item.Title" width="220" height="311.14" />
+                    </a>
+                </div>
+                <div class="key">
+                    <p style="font-size: 14px; margin-top: 10px;">Game Key: @item.GameKey</p>
+                </div>
+            </div>
+        }
     </div>
-}
+</div>

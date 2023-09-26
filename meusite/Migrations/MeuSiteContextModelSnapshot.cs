@@ -374,6 +374,10 @@ namespace meusite.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("GameKey")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 

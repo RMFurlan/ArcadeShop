@@ -2,6 +2,7 @@
 using meusite.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using shoppingstore.Models;
 
 namespace MeuSite.Controllers
@@ -10,12 +11,14 @@ namespace MeuSite.Controllers
     public class CheckoutController : Controller
     {
         private readonly ShoppingCart _shoppingCart;
-        MeuSiteContext storeDB = new MeuSiteContext();
+        private readonly MeuSiteContext _context;
         const string PromoCode = "50";
-        public CheckoutController(ShoppingCart shoppingCart)
+        public CheckoutController(ShoppingCart shoppingCart, MeuSiteContext context)
         {
             _shoppingCart = shoppingCart;
+            _context = context;
         }
+
         public IActionResult Payment()
         {
             return View();
@@ -39,9 +42,8 @@ namespace MeuSite.Controllers
                     order.Username = User.Identity.Name;
                     order.OrderDate = DateTime.Now;
 
-
-                    storeDB.Orders.Add(order);
-                    storeDB.SaveChanges();
+                    _context.Orders.Add(order);
+                    await _context.SaveChangesAsync();
 
                     var cart = _shoppingCart.GetCart(this.HttpContext);
                     cart.CreateOrder(order);
@@ -51,13 +53,12 @@ namespace MeuSite.Controllers
             }
             catch
             {
-
                 return View(order);
             }
         }
         public IActionResult Complete(int id)
         {
-            bool isValid = storeDB.Orders.Any(
+            bool isValid = _context.Orders.Any(
                 o => o.OrderId == id &&
                 o.Username == User.Identity.Name);
 
